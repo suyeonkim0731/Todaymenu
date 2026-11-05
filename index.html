@@ -29,6 +29,11 @@
     <p class="status" id="status" role="status">제철 메뉴를 불러오고 있어요…</p>
     <section class="grid" id="recipes" aria-labelledby="results-title" aria-busy="true"></section>
     <div class="empty" id="empty" hidden><strong>조건에 맞는 레시피가 없어요.</strong><br>다른 재료나 월을 선택해 보세요.</div>
+    <section id="random-section" hidden style="margin-top:40px" aria-labelledby="random-title">
+      <div class="results-heading"><h2 id="random-title">이런 메뉴도 어때요?</h2><span class="count" id="random-count"></span></div>
+      <p class="hint" style="margin:0 0 20px">이달의 추천 메뉴가 15개 이하라, 다른 달의 메뉴에서도 랜덤으로 골랐어요.</p>
+      <div class="grid" id="random-recipes"></div>
+    </section>
     <footer>오늘 뭐먹지? · 계절을 담은 작은 식탁<span>메뉴 정보: menu.json</span></footer>
   </main>
   <dialog id="recipe-dialog" class="recipe-dialog" aria-labelledby="dialog-title">
@@ -44,6 +49,7 @@
     const status = document.querySelector('#status');
     let data = { seasonal: [], recipes: [] };
     let selectedIngredient = null;
+    const randomMenusByMonth = new Map();
     for (let month = 1; month <= 12; month++) {
       const option = document.createElement('option');
       option.value = month;
@@ -153,6 +159,27 @@
       card.append(recipePhoto(recipe), body, open);
       return card;
     }
+    function randomRecommendations(month) {
+      if (randomMenusByMonth.has(month)) return randomMenusByMonth.get(month);
+      const monthly = data.recipes.filter(recipe => Array.isArray(recipe.months) && recipe.months.some(value => Number(value) === month));
+      const extras = [];
+      if (monthly.length <= 15) {
+        const key = recipe => recipe.id ?? recipe.name;
+        const seen = new Set(monthly.map(key));
+        const candidates = data.recipes.filter(recipe => {
+          if (seen.has(key(recipe))) return false;
+          seen.add(key(recipe));
+          return true;
+        });
+        for (let i = candidates.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+        }
+        extras.push(...candidates.slice(0, 5));
+      }
+      randomMenusByMonth.set(month, extras);
+      return extras;
+    }
     function renderRecipes() {
       const month = Number(monthSelect.value);
       const recipes = data.recipes.filter(recipe =>
@@ -160,9 +187,15 @@
         (selectedIngredient === null || (Array.isArray(recipe.seasonal) && recipe.seasonal.includes(selectedIngredient)))
       );
       document.querySelector('#results-title').textContent = selectedIngredient ? `${selectedIngredient} 추천 메뉴` : `${month}월의 추천 메뉴`;
-      document.querySelector('#count').textContent = `${recipes.length}개의 메뉴`;
+      const extras = selectedIngredient === null ? randomRecommendations(month) : [];
+      document.querySelector('#count').textContent = extras.length
+        ? `총 ${recipes.length + extras.length}개 · 랜덤 ${extras.length}개 포함`
+        : `${recipes.length}개의 메뉴`;
       recipeGrid.replaceChildren(...recipes.map(recipeCard));
-      document.querySelector('#empty').hidden = recipes.length !== 0;
+      document.querySelector('#empty').hidden = recipes.length !== 0 || extras.length !== 0;
+      document.querySelector('#random-section').hidden = extras.length === 0;
+      document.querySelector('#random-count').textContent = `랜덤 추천 ${extras.length}개`;
+      document.querySelector('#random-recipes').replaceChildren(...extras.map(recipeCard));
     }
     async function loadMenu() {
       try {
