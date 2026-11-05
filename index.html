@@ -30,11 +30,17 @@
     @media(prefers-reduced-motion:reduce){.card,.photo img,.chip{transition:none}.card:hover,.chip:hover{transform:none}}
     @media(max-width:850px){body{margin:12px;min-height:calc(100vh - 24px)}.hero{gap:20px}.month-picker{min-width:190px;padding:24px 18px}.brand small{letter-spacing:1.5px}}
     @media(max-width:560px){body{margin:0;border:0;min-height:100vh}.brand{height:74px;font-size:19px}.brand small{font-size:8px;letter-spacing:1px}.hero{padding:32px 0}.eyebrow{font-size:10px}h1{font-size:39px;letter-spacing:-2px}.month-picker{transform:none;margin-top:30px;padding:20px 17px 15px;min-width:0;grid-template-columns:1fr 95px}.month-picker label{font-size:13px}.month-picker select{font-size:22px}.ingredients{padding:21px 16px}.results-heading{gap:9px;flex-wrap:wrap}.results-heading h2{font-size:22px}.card h3{font-size:21px}.grid{gap:24px}.recipe-dialog{border-radius:4px}.dialog-body h2{font-size:25px}.dialog-header{padding:10px 16px}}
+    .book-tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);padding-top:20px}.book-tab{padding:13px 24px;border:1px solid transparent;border-bottom:0;background:transparent;font-family:var(--serif);font-size:16px;color:#8b775e;border-radius:5px 5px 0 0}.book-tab[aria-selected=true]{background:#efe2cb;border-color:#ceba9a;color:#75472e;box-shadow:inset 0 3px #a26b43}.book-tab:hover{background:#f0e7d6}.book-tab:disabled{opacity:.5;cursor:wait}.jeju-hero{padding-bottom:30px}.jeju-seal{display:grid;place-items:center;flex-shrink:0;width:150px;height:150px;border:3px double #b48c61;border-radius:50%;color:#9a654b;font:italic 26px Georgia,serif;transform:rotate(-8deg);text-align:center;line-height:1.5}.jeju-seal small{font:11px var(--serif);letter-spacing:2px}.specialty-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:18px}.specialty{position:relative;display:flex;align-items:flex-start;gap:14px;text-align:left;padding:20px 17px;background:#fffcf3;border:1px solid #d8c5a7;border-radius:3px;color:#6b533c;min-width:0}.specialty[aria-pressed=true]{border-color:#a06c43;background:#efe1c8;box-shadow:inset 0 0 0 1px #a06c43}.specialty:hover{background:#f4e9d7}.specialty-icon{font-size:28px;line-height:1.5}.specialty-copy{display:grid;gap:6px}.specialty strong{font-family:var(--serif);font-size:19px}.specialty-desc{font-size:12px;line-height:1.8;color:#8c775d}.specialty-count{font-size:11px;color:#9a654b}.jeju-guide{background:#f0e7d5;border-top:1px solid #cdb99b;border-bottom:1px solid #cdb99b;padding:22px 24px;margin:0 0 34px}.jeju-guide h2{font:600 19px var(--serif);margin:0}.jeju-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:20px 0}.jeju-toolbar p{margin:0;font-size:12px;color:#887761;line-height:1.8}.jeju-all{background:transparent;border:0;border-bottom:1px solid #aa8361;padding:5px 0;color:#825b3e;white-space:nowrap;font-size:12px}.jeju-source{font-size:11px;line-height:1.9;color:#8b775f;margin:28px 0}.jeju-source a{color:#825b3e;text-underline-offset:3px}.jeju-recipe-note{font-size:13px;color:#88745c;line-height:1.9;margin:-8px 0 23px}@media(max-width:850px){.specialty-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.book-tab{flex:1;padding:13px 10px;font-size:15px}.jeju-seal{display:none}.jeju-guide{padding:20px 14px}.specialty{padding:15px 11px;gap:8px}.specialty-icon{font-size:23px}.specialty strong{font-size:17px}.specialty-desc{font-size:11px}.jeju-toolbar{align-items:flex-start}.jeju-toolbar p{font-size:11px}}
   </style>
 </head>
 <body>
   <header><div class="wrap brand"><span aria-hidden="true">📖</span> 오늘 뭐먹지?<small>THE SEASONAL COOKBOOK</small></div></header>
   <main class="wrap">
+    <nav class="book-tabs" role="tablist" aria-label="요리책 목차">
+      <button class="book-tab" type="button" role="tab" id="seasonal-tab" aria-controls="seasonal-panel" aria-selected="true">월별 제철 요리</button>
+      <button class="book-tab" type="button" role="tab" id="jeju-tab" aria-controls="jeju-panel" aria-selected="false" tabindex="-1" disabled>제주 특산물</button>
+    </nav>
+    <div id="seasonal-panel" role="tabpanel" aria-labelledby="seasonal-tab">
     <section class="hero" aria-labelledby="title">
       <div><div class="eyebrow">열두 달의 제철 요리 노트</div><h1 id="title">계절을 넘기며,<br>오늘의 <em>한 끼.</em></h1><p class="intro">지금 맛있는 재료로 써 내려가는 우리 집 요리책.<br>월과 재료를 골라, 오늘 펼쳐볼 레시피를 찾아보세요.</p><p class="book-caption">A little inspiration for your everyday table.</p></div>
       <div class="month-picker"><label for="month">어느 달의 식탁을 볼까요?</label><select id="month" aria-label="월 선택"></select></div>
@@ -49,6 +55,19 @@
       <p class="hint" style="margin:0 0 20px">이달의 추천 메뉴가 15개 이하라, 다른 달의 메뉴에서도 랜덤으로 골랐어요.</p>
       <div class="grid" id="random-recipes"></div>
     </section>
+    </div>
+    <div id="jeju-panel" role="tabpanel" aria-labelledby="jeju-tab" hidden>
+      <section class="hero jeju-hero" aria-labelledby="jeju-title">
+        <div><div class="eyebrow">특별 부록 · 제주도의 식탁</div><h1 id="jeju-title">섬에서 온 재료,<br>식탁 위의 <em>제주.</em></h1><p class="intro">감귤부터 바다의 맛까지, 제주의 특산물을 만나보세요.<br>마음에 드는 재료를 고르면 함께 요리할 레시피를 펼쳐드려요.</p></div>
+        <div class="jeju-seal" aria-hidden="true">Jeju Island<br><small>제주의 맛을 담다</small></div>
+      </section>
+      <section class="jeju-guide" aria-labelledby="specialty-title"><h2 id="specialty-title">제주 특산물 수첩</h2><div class="specialty-grid" id="specialties"></div><div class="jeju-toolbar"><p>재료 카드를 누르면 관련 메뉴를 볼 수 있어요.</p><button type="button" class="jeju-all" id="jeju-all">전체 특산물 메뉴 보기</button></div></section>
+      <div class="results-heading"><h2 id="jeju-results-title">제주 재료로 차리는 한 끼</h2><span class="count" id="jeju-count" role="status" aria-live="polite"></span></div>
+      <p class="jeju-recipe-note" id="jeju-note">월과 관계없이, 특산물과 같은 재료를 쓰는 레시피를 모았어요. 제주산 재료로 응용해 보세요.</p>
+      <section class="grid" id="jeju-recipes" aria-labelledby="jeju-results-title"></section>
+      <div class="empty" id="jeju-empty" hidden><strong>이 재료의 레시피는 아직 준비 중이에요.</strong><br>다른 특산물을 선택하거나 전체 특산물 메뉴를 살펴보세요.</div>
+      <p class="jeju-source">특산물 참고: 비짓제주 <a href="https://www.visitjeju.net/kr/themtour/view?contentsid=CNTS_200000000013390" target="_blank" rel="noopener noreferrer">제주의 7대 특산물</a> · <a href="https://m.visitjeju.net/kr/themtour/view?contentsid=CNTS_200000000012174" target="_blank" rel="noopener noreferrer">제주 전통시장 이야기</a></p>
+    </div>
     <footer>오늘 뭐먹지? · 계절을 담은 작은 요리책<span>한 장씩 펼쳐보는, 오늘의 식탁.</span></footer>
   </main>
   <dialog id="recipe-dialog" class="recipe-dialog" aria-labelledby="dialog-title">
@@ -65,6 +84,75 @@
     let data = { seasonal: [], recipes: [] };
     let selectedIngredient = null;
     const randomMenusByMonth = new Map();
+    let selectedSpecialty = null;
+    const jejuSpecialties = [
+      { name: '감귤', icon: '🍊', description: '제주를 대표하는 과일. 샐러드와 후식으로 즐겨보세요.', keywords: ['감귤', '귤', '한라봉', '천혜향', '레드향'] },
+      { name: '흑돼지', icon: '🐖', description: '제주의 돼지고기로 구이부터 찜까지 차려보세요.', keywords: ['흑돼지', '돼지고기', '삼겹살', '목살', '돈육'] },
+      { name: '고사리', icon: '🌱', description: '나물과 밥에 곁들여보는 제주의 산나물.', keywords: ['고사리'] },
+      { name: '갈치', icon: '🐟', description: '제주 바다의 맛을 구이 한 접시에 담아보세요.', keywords: ['갈치'] },
+      { name: '옥돔', icon: '🌊', description: '제주 특산 생선. 담백한 한 끼를 떠올려보세요.', keywords: ['옥돔'] },
+      { name: '전복', icon: '🐚', description: '죽과 밥으로 즐기는 바다의 재료.', keywords: ['전복'] }
+    ];
+    function matchesSpecialty(recipe, specialty) {
+      const text = [recipe.name, ...(recipe.main_ingredients || [])].join(' ').replace(/\s/g, '');
+      return specialty.keywords.some(keyword => text.includes(keyword));
+    }
+    function renderJejuRecipes() {
+      const selected = jejuSpecialties.find(item => item.name === selectedSpecialty);
+      const recipes = data.recipes.filter(recipe => selected
+        ? matchesSpecialty(recipe, selected)
+        : jejuSpecialties.some(item => matchesSpecialty(recipe, item)));
+      document.querySelector('#jeju-results-title').textContent = selected ? `${selected.name}로 차리는 한 끼` : '제주 재료로 차리는 한 끼';
+      document.querySelector('#jeju-count').textContent = `${recipes.length}개의 메뉴`;
+      document.querySelector('#jeju-note').textContent = selected?.name === '흑돼지'
+        ? '돼지고기를 사용하는 레시피입니다. 같은 부위의 제주 흑돼지로 응용해 보세요.'
+        : '월과 관계없이, 특산물과 같은 재료를 쓰는 레시피를 모았어요. 제주산 재료로 응용해 보세요.';
+      document.querySelector('#jeju-recipes').replaceChildren(...recipes.map(recipeCard));
+      document.querySelector('#jeju-empty').hidden = recipes.length !== 0;
+      for (const button of document.querySelector('#specialties').children) {
+        button.setAttribute('aria-pressed', String(button.dataset.specialty === selectedSpecialty));
+      }
+    }
+    function renderSpecialties() {
+      const grid = document.querySelector('#specialties');
+      grid.replaceChildren();
+      jejuSpecialties.forEach(item => {
+        const count = data.recipes.filter(recipe => matchesSpecialty(recipe, item)).length;
+        const button = element('button', 'specialty');
+        button.type = 'button';
+        button.dataset.specialty = item.name;
+        button.setAttribute('aria-pressed', 'false');
+        const icon = element('span', 'specialty-icon', item.icon);
+        icon.setAttribute('aria-hidden', 'true');
+        const copy = element('span', 'specialty-copy');
+        copy.append(element('strong', '', item.name), element('span', 'specialty-desc', item.description), element('span', 'specialty-count', count ? `관련 레시피 ${count}개` : '레시피 준비 중'));
+        button.append(icon, copy);
+        button.addEventListener('click', () => { selectedSpecialty = item.name; renderJejuRecipes(); });
+        grid.append(button);
+      });
+      renderJejuRecipes();
+    }
+    document.querySelector('#jeju-all').addEventListener('click', () => { selectedSpecialty = null; renderJejuRecipes(); });
+    const bookTabs = [document.querySelector('#seasonal-tab'), document.querySelector('#jeju-tab')];
+    function selectBookTab(index) {
+      bookTabs.forEach((button, i) => {
+        button.setAttribute('aria-selected', String(i === index));
+        button.tabIndex = i === index ? 0 : -1;
+      });
+      document.querySelector('#seasonal-panel').hidden = index !== 0;
+      document.querySelector('#jeju-panel').hidden = index !== 1;
+    }
+    bookTabs.forEach((button, index) => {
+      button.addEventListener('click', () => selectBookTab(index));
+      button.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? 1 : 1 - index;
+        if (bookTabs[next].disabled) return;
+        event.preventDefault();
+        selectBookTab(next);
+        bookTabs[next].focus();
+      });
+    });
     for (let month = 1; month <= 12; month++) {
       const option = document.createElement('option');
       option.value = month;
@@ -220,8 +308,10 @@
         if (!Array.isArray(menu.seasonal) || !Array.isArray(menu.recipes)) throw new Error('잘못된 데이터 구조');
         data = menu;
         renderIngredients();
+        renderSpecialties();
         status.hidden = true;
         monthSelect.disabled = false;
+        document.querySelector('#jeju-tab').disabled = false;
       } catch (error) {
         status.classList.add('error');
         status.textContent = location.protocol === 'file:'
