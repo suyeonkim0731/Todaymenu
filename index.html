@@ -13,6 +13,8 @@
     .ingredients{background:#eaf0df;border:1px solid #dce6cd;border-radius:20px;padding:26px 28px;margin:0 0 44px}.section-label{margin:0 0 16px;font-size:15px}.chips{display:flex;flex-wrap:wrap;gap:9px}.chip{padding:10px 19px;border:1px solid #bdcdae;background:#fbfcf7;color:#3e5933;border-radius:30px;transition:background .15s,transform .15s}.chip:hover{background:#dce7ce;transform:translateY(-1px)}.chip[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}.hint{font-size:12px;color:var(--muted);margin:15px 0 0}
     .results-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.results-heading h2{font-size:24px;letter-spacing:-.7px;margin:0}.count{color:var(--muted);font-size:13px;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}.photo{aspect-ratio:4/3;position:relative;background:#e9ecdf;display:grid;place-items:center;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .3s}.card:hover img{transform:scale(1.035)}.fallback{color:#7c8b6a;font-size:14px}.card-body{padding:21px}.tags{display:flex;gap:7px;flex-wrap:wrap;font-size:11px;color:#5b7349}.tags span{background:#f0f4e8;border-radius:5px;padding:5px 8px}.card h3{font-size:19px;line-height:1.5;margin:12px 0 8px;letter-spacing:-.5px}.ingredients-text{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 15px}.details{border-top:1px solid #eef0e8;padding-top:14px;font-size:13px;line-height:1.8}.details summary{font-weight:700;color:var(--green)}.details h4{margin:16px 0 6px}.details p{white-space:pre-line;margin:0}.details ol{padding-left:20px}.details li{margin-bottom:9px}.empty{padding:55px 24px;border:1px dashed #bccab0;border-radius:18px;text-align:center;color:var(--muted);line-height:1.8;background:#fff}.empty strong{color:var(--green);font-size:18px}.status{margin:0 0 24px;color:var(--muted);line-height:1.8}.status.error{background:#fff3e4;color:#81541f;padding:22px;border-radius:14px}footer{margin-top:60px;padding:24px 0 32px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.8}footer span{float:right} [hidden]{display:none!important}
     @media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:40px}}@media(max-width:560px){.wrap{padding:0 20px}.brand{height:66px}.brand small{font-size:9px;letter-spacing:1px}.hero{display:block;padding-top:32px}.month-picker{margin-top:24px;max-width:100%;grid-template-columns:1fr 140px;align-items:center}.ingredients{padding:22px 20px;margin-bottom:32px}.chip{padding:9px 15px}.grid{grid-template-columns:1fr}.results-heading h2{font-size:20px}footer span{float:none;display:block}.intro{font-size:14px}}
+    .card{position:relative}.card-open{position:absolute;inset:0;border:0;background:transparent;border-radius:18px;z-index:1}.card-open:hover{box-shadow:inset 0 0 0 2px #9fb58c}.card-open:focus-visible{outline:3px solid #c28037;outline-offset:3px}.card-hint{border-top:1px solid var(--line);padding-top:13px;margin:0;font-size:13px;font-weight:700;color:var(--green)}
+    .recipe-dialog{padding:0;border:0;border-radius:22px;width:min(800px,calc(100% - 32px));max-height:calc(100dvh - 40px);color:#263b2e;background:#fff;box-shadow:0 24px 90px #142d3266;overscroll-behavior:contain}.recipe-dialog::backdrop{background:#14251dd1}.dialog-header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;background:#fff;padding:15px 24px;border-bottom:1px solid var(--line)}.dialog-header p{margin:0;font-weight:700;font-size:14px}.dialog-x{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#f7f7f0;font-size:26px;color:var(--green)}.dialog-photo{aspect-ratio:auto;height:clamp(220px,45vw,420px);background:#f0f2e9}.dialog-photo img{object-fit:contain}.dialog-body{padding:28px 32px}.dialog-body h2{font-size:28px;letter-spacing:-1px;line-height:1.4;margin:0 0 18px}.recipe-meta{display:flex;flex-wrap:wrap;gap:20px;margin:0;padding-bottom:22px;border-bottom:1px solid var(--line)}.recipe-meta div{display:grid;gap:5px}.recipe-meta dt{font-size:12px;color:var(--muted)}.recipe-meta dd{margin:0;font-weight:700;font-size:15px}.recipe-section{margin-top:26px;line-height:1.9;font-size:15px}.recipe-section h3{font-size:18px;margin:0 0 10px}.recipe-section p{white-space:pre-line;margin:0}.recipe-section ol{padding-left:25px;margin:0}.recipe-section li{padding-left:5px;margin-bottom:14px}.recipe-tip{background:#eef3e5;border-radius:14px;padding:20px}.dialog-footer{display:flex;justify-content:flex-end;padding:0 32px 28px}.dialog-close{border:0;border-radius:10px;padding:12px 32px;color:white;background:var(--green);font-weight:700}@media(max-width:560px){.recipe-dialog{width:calc(100% - 20px);max-height:calc(100dvh - 20px);border-radius:16px}.dialog-header{padding:10px 16px}.dialog-body{padding:24px 20px}.dialog-body h2{font-size:24px}.dialog-footer{padding:0 20px 24px}.dialog-close{width:100%}}
   </style>
 </head>
 <body>
@@ -29,6 +31,11 @@
     <div class="empty" id="empty" hidden><strong>조건에 맞는 레시피가 없어요.</strong><br>다른 재료나 월을 선택해 보세요.</div>
     <footer>오늘 뭐먹지? · 계절을 담은 작은 식탁<span>메뉴 정보: menu.json</span></footer>
   </main>
+  <dialog id="recipe-dialog" class="recipe-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-header"><p>오늘의 레시피</p><button type="button" class="dialog-x" id="dialog-x" aria-label="레시피 팝업 닫기" autofocus>×</button></div>
+    <div id="dialog-content"></div>
+    <div class="dialog-footer"><button type="button" class="dialog-close" id="dialog-close">닫기</button></div>
+  </dialog>
   <script>
     'use strict';
     const monthSelect = document.querySelector('#month');
@@ -71,9 +78,17 @@
       if (!names.length) chips.append(element('span', 'hint', '등록된 제철 재료가 없어요.'));
       renderRecipes();
     }
-    function recipeCard(recipe) {
-      const card = element('article', 'card');
-      const photo = element('div', 'photo');
+    const recipeDialog = document.querySelector('#recipe-dialog');
+    let previousOverflow = '';
+    let activeCardButton = null;
+    document.querySelector('#dialog-x').addEventListener('click', () => recipeDialog.close());
+    document.querySelector('#dialog-close').addEventListener('click', () => recipeDialog.close());
+    recipeDialog.addEventListener('close', () => {
+      document.body.style.overflow = previousOverflow;
+      activeCardButton?.focus({ preventScroll: true });
+    });
+    function recipePhoto(recipe, large = false) {
+      const photo = element('div', large ? 'photo dialog-photo' : 'photo');
       photo.append(element('span', 'fallback', '사진 준비 중'));
       if (recipe.image) {
         try {
@@ -81,31 +96,61 @@
           if (['https:', 'http:'].includes(url.protocol)) {
             const img = document.createElement('img');
             img.alt = recipe.name;
-            img.loading = 'lazy';
+            img.loading = large ? 'eager' : 'lazy';
             img.addEventListener('error', () => img.remove(), { once: true });
             img.src = url.href;
             photo.append(img);
           }
         } catch { /* 사진 주소가 없으면 대체 문구를 표시합니다. */ }
       }
+      return photo;
+    }
+    function openRecipe(recipe, trigger) {
+      const body = element('div', 'dialog-body');
+      const title = element('h2', '', recipe.name);
+      title.id = 'dialog-title';
+      const meta = element('dl', 'recipe-meta');
+      for (const [label, value] of [['요리종류', recipe.category], ['조리방법', recipe.method]]) {
+        const item = element('div');
+        item.append(element('dt', '', label), element('dd', '', value || '등록된 정보가 없어요.'));
+        meta.append(item);
+      }
+      body.append(title, meta);
+      function section(label, content, className = '') {
+        const block = element('section', `recipe-section ${className}`);
+        block.append(element('h3', '', label), content);
+        body.append(block);
+      }
+      section('재료', element('p', '', recipe.ingredients_text || (recipe.main_ingredients || []).join(' · ') || '등록된 재료가 없어요.'));
+      if (Array.isArray(recipe.steps) && recipe.steps.length) {
+        const steps = element('ol');
+        recipe.steps.forEach(step => steps.append(element('li', '', step)));
+        section('조리순서', steps);
+      } else {
+        section('조리순서', element('p', '', '등록된 조리순서가 없어요.'));
+      }
+      if (typeof recipe.tip === 'string' && recipe.tip.trim()) section('TIP', element('p', '', recipe.tip), 'recipe-tip');
+      document.querySelector('#dialog-content').replaceChildren(recipePhoto(recipe, true), body);
+      activeCardButton = trigger;
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      recipeDialog.showModal();
+      recipeDialog.scrollTop = 0;
+    }
+    function recipeCard(recipe) {
+      const card = element('article', 'card');
       const body = element('div', 'card-body');
       const tags = element('div', 'tags');
       tags.append(element('span', '', recipe.category || '요리'));
       if (recipe.method) tags.append(element('span', '', recipe.method));
       body.append(tags, element('h3', '', recipe.name), element('p', 'ingredients-text', (recipe.main_ingredients || []).join(' · ')));
-      if (recipe.ingredients_text || recipe.steps?.length) {
-        const details = element('details', 'details');
-        details.append(element('summary', '', '재료와 만드는 법 보기'));
-        if (recipe.ingredients_text) details.append(element('h4', '', '준비 재료'), element('p', '', recipe.ingredients_text));
-        if (recipe.steps?.length) {
-          details.append(element('h4', '', '만드는 법'));
-          const steps = element('ol');
-          recipe.steps.forEach(step => steps.append(element('li', '', step)));
-          details.append(steps);
-        }
-        body.append(details);
-      }
-      card.append(photo, body);
+      body.append(element('p', 'card-hint', '레시피 자세히 보기 ↗'));
+      const open = element('button', 'card-open');
+      open.type = 'button';
+      open.setAttribute('aria-label', `${recipe.name} 레시피 보기`);
+      open.setAttribute('aria-haspopup', 'dialog');
+      open.addEventListener('click', () => openRecipe(recipe, open));
+      card.append(recipePhoto(recipe), body, open);
       return card;
     }
     function renderRecipes() {
